@@ -9,7 +9,7 @@
     <table>
       <tr>
         <?php
-          for ($i = 0; $i < 11; $i++) {
+          for ($i = 0; $i <= 10; $i++) {
             ?>
               <td class="light-blue">
                 <?php
