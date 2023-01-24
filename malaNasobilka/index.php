@@ -7,60 +7,38 @@
   </head>
   <body>
     <table>
-      <tr>
-        <?php
-          for ($i = 0; $i <= 10; $i++) {
-            ?>
-              <td class="light-blue">
-                <?php
-                  echo $i;
-                ?>
-              </td>
-            <?php
-          }
-          ?>
-      </tr>
-        <?php
-          for ($i = 1; $i <= 10; $i++) {
-            ?>
-            <tr>
-              <td class="light-blue">
-                <?php
-                  echo $i;
-                ?>
-              </td>
-            <?php
-            for ($j = 1; $j <= 10; $j++) {
-              ?>
-                <td>
-                  <?php
-                    echo $i * $j;
-                  ?>
-                </td>
-              <?php
+      <?php
+        $rows = 10;
+        $cols = 10;
+
+        for ($i = 0; $i <= $rows; $i++) {
+          echo '<tr>';
+            for ($j = 0; $j <= $cols; $j++) {
+              if ($i == 0) {
+                echo "<td>$j</td>";
+              } elseif ($j == 0) {
+                  echo "<td>$i</td>";
+              } else
+                  echo sprintf("<td>%d</td>", $i * $j);
             }
-            ?>
-            </tr>
-            <?php
-          }
-        ?>
+          echo '</tr>';
+        }
+      ?>
     </table>
+        <style>
+          table {
+            border-collapse: collapse;
+            text-align: center;
+          }
 
-    <style>
-      table {
-        border-collapse: collapse;
-        text-align: center;
-      }
+          td {
+            border: 1px solid black;
+            padding: 8px;
+          }
 
-      td, th {
-        border: 1px solid black;
-        padding: 8px;
-      }
-
-      .light-blue {
-        background-color: lightblue;
-        font-weight: bold;
-      }
-    </style>
+          tr :first-child, tr:first-child {
+              background: #10FE10;
+          }
+        </style>
   </body>
 </html>
