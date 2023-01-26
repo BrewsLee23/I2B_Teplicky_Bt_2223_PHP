@@ -13,11 +13,13 @@
             <label for="ConvertTo">Soustava</label>
             <input type="number" name="convert" id="numberId">
             <br>
-            <button type="submit">Odeslat</button>
+            <button type="submit"">Odeslat</button>
         </form>
         <?php
             $num = (string)$_GET['num'];
             $convert = $_GET['convert'];
+            if ($convert < 2)
+                echo "Wrong Input!";
 
             echo 'Číslo: ' . $num . '<br>';
             echo 'Do soustavy: ' . $convert . '<br>';
@@ -26,7 +28,6 @@
 
             function convert($num, $convert) {
                 $converted = "";
-                $remainder;
                 while($num > 0) {
                     $remainder = $num%$convert;
                     $num = intval(($num - $remainder)/$convert);
@@ -37,5 +38,13 @@
                 return $converted;
             }
         ?>
+        <style>
+            input {
+                width: 100%;
+            }
+            form > * {
+                margin-bottom: 8px;
+            }
+        </style>
     </body>
 </html>

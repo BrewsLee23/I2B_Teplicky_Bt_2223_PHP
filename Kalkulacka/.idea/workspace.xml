@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71cc2127-5536-4638-8dd2-5b0c085cf87f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/kalkulacka.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +35,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1674544981411</updated>
-      <workItem from="1674544982546" duration="2952000" />
+      <workItem from="1674544982546" duration="3079000" />
     </task>
     <servers />
   </component>
