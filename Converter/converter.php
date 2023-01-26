@@ -11,15 +11,13 @@
             <input type="number" placeholder="V desítkové soustavě" name="num" id="numberId">
             <br>
             <label for="ConvertTo">Soustava</label>
-            <input type="number" name="convert" id="numberId">
+            <input type="number" placeholder="min: 2    max: 36" name="convert" id="numberId" min="2" max="36">
             <br>
-            <button type="submit"">Odeslat</button>
+            <button type="submit">Odeslat</button>
         </form>
         <?php
             $num = (string)$_GET['num'];
             $convert = $_GET['convert'];
-            if ($convert < 2)
-                echo "Wrong Input!";
 
             echo 'Číslo: ' . $num . '<br>';
             echo 'Do soustavy: ' . $convert . '<br>';
