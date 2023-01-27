@@ -89,14 +89,17 @@
 
             function vypisPostup($num, $convertFrom, $convertTo) {
                 $num = strtoupper($num);
+                $numLen = strlen($num);
+                $char = 1;
+
                 echo "Převod čísla '" . $num . "' ze soustavy {$convertFrom}-ové do soustavy {$convertTo}-ové<br>";
                 echo "<table>";
                     echo "<tr>
                         <td>
-                            $convertFrom
+                            $convertFrom-ová
                         </td>
                         <td>
-                            10
+                            10-ová
                         </td>
                     </tr>";
                 for($i = 0; $i < $convertFrom; $i++) {
@@ -105,7 +108,7 @@
                     else
                         $convNum = chr($i+55);
                     echo "<tr>
-                        <td>
+                        <td>  
                             $convNum
                         </td>
                         <td>
@@ -115,13 +118,37 @@
                 }
                 echo "</table>";
                 if ($convertFrom != 10) {
-                    echo "Číslo převedu z {$convertFrom}-ové soustavy do desítkové<br>";
-                    echo "{$num} = ";
-                    for($j = strlen($num); $j > 0 ; $j--) {
-                        echo substr($num, -1) . " * {$convertFrom}^" . $j;
-                        $num = substr($num, 0, -1);
+                    echo "Číslo převedu do desítkové soustavy:<br>";
+                    if (!(is_numeric(substr($num, 0, 1)))) {
+                        echo ord(substr($num, 0, 1)) - 55 . ' * (' . $convertFrom . '^' . ($numLen - 1) . ")\t";
+                    } else {
+                        echo substr($num, 0, 1) . ' * (' . $convertFrom . '^' . ($numLen - 1) . ")\t";
                     }
+
+                    for ($i = $numLen - 2; $i >= 0; $i--) {
+                        echo ' + ';
+                        if (!(is_numeric(substr($num, $char, 1)))) {
+                            echo ord(substr($num, $char, 1)) - 55 . ' * (' . $convertFrom . '^' . $i . ")\t";
+                        } else {
+                            echo substr($num, $char, 1) . ' * (' . $convertFrom . '^' . $i . ")\t";
+                        }
+                        $char++;
+                    }
+                    echo '<br>';
+                    echo '= ' . toDecimal($num, $convertFrom) . '<br><br>';
                 }
+                    
+                if ($convertTo != 10) {
+                    $numLen = strlen($num);
+                    $char = 0;
+                    $loopBool = TRUE;
+                    echo "Teď číslo převedu z desítkové soustavy do $convertTo-ové soustavy:<br>";
+                    //while ($loopBool) {
+                        
+                }
+                /*else {
+
+                }*/             
             }
 
             function alert($msg) {
