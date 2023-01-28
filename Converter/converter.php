@@ -19,6 +19,16 @@
                 padding: 2px;
                 text-align: center;
             }
+
+            .convert-table {
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+            }
+
+            .from-decimal {
+                margin-right: 2rem;
+            }
         </style>
     </head>
     <body>
@@ -34,7 +44,7 @@
             <br>
             <button type="submit">Převést</button>
         </form>
-        <?php            
+        <?php
             $num = $_GET['num'];
             $convertFrom = $_GET['convertFrom'];
             $convertTo = $_GET['convertTo'];
@@ -92,7 +102,8 @@
                 $numLen = strlen($num);
                 $char = 1;
 
-                echo "Převod čísla '" . $num . "' ze soustavy {$convertFrom}-ové do soustavy {$convertTo}-ové<br>";
+                echo "Převod čísla '" . $num . "' ze soustavy {$convertFrom}-ové do soustavy {$convertTo}-ové<br><br>";
+                echo "Číslo převedu do desítkové soustavy:<br>";
                 echo "<table>";
                     echo "<tr>
                         <td>
@@ -102,29 +113,30 @@
                             10-ová
                         </td>
                     </tr>";
-                for($i = 0; $i < $convertFrom; $i++) {
-                    if ($i < 10)
-                        $convNum = $i;
-                    else
-                        $convNum = chr($i+55);
-                    echo "<tr>
-                        <td>  
-                            $convNum
-                        </td>
-                        <td>
-                            $i
-                        </td>
-                    </tr>";
+                if ($convertFrom != 10) {
+                    for($i = 0; $i < $convertFrom; $i++) {
+                        if ($i < 10)
+                            $convNum = $i;
+                        else
+                            $convNum = chr($i+55);
+                        echo "<tr>
+                            <td>  
+                                $convNum
+                            </td>
+                            <td>
+                                $i
+                            </td>
+                        </tr>";
+                    }
                 }
                 echo "</table>";
-                if ($convertFrom != 10) {
-                    echo "Číslo převedu do desítkové soustavy:<br>";
+                echo $num . ' = ';
+                if ($convertFrom != 10) {    
                     if (!(is_numeric(substr($num, 0, 1)))) {
                         echo ord(substr($num, 0, 1)) - 55 . ' * (' . $convertFrom . '^' . ($numLen - 1) . ")\t";
                     } else {
                         echo substr($num, 0, 1) . ' * (' . $convertFrom . '^' . ($numLen - 1) . ")\t";
                     }
-
                     for ($i = $numLen - 2; $i >= 0; $i--) {
                         echo ' + ';
                         if (!(is_numeric(substr($num, $char, 1)))) {
@@ -134,21 +146,73 @@
                         }
                         $char++;
                     }
-                    echo '<br>';
-                    echo '= ' . toDecimal($num, $convertFrom) . '<br><br>';
+                    echo ' = ' . toDecimal($num, $convertFrom) . '<br><br>';
                 }
                     
                 if ($convertTo != 10) {
+                    $num = toDecimal($num, $convertFrom);
+                    $convertedNum = '';
                     $numLen = strlen($num);
-                    $char = 0;
-                    $loopBool = TRUE;
-                    echo "Teď číslo převedu z desítkové soustavy do $convertTo-ové soustavy:<br>";
-                    //while ($loopBool) {
-                        
-                }
-                /*else {
+                    $isConverted = FALSE;
+                    echo "Číslo převedu z desítkové soustavy do $convertTo-ové soustavy:<br>";
+                    echo '<div class="convert-table">';
+                    echo '<table class="from-decimal">';
+                        echo "<tr>
+                                <td> Dělenec </td>
+                                <td> Dělitel </td>
+                                <td> Zbytek </td>
+                            </tr>";                       
+                        while (!($isConverted)) {
+                            echo '<tr>'.
+                                '<td>' . $num . '</td>'.
+                                '<td>' . $convertTo . '</td>'.
+                                '<td>' . $num%$convertTo . '</td>';
+                            echo '</tr>';
+                            if (($num%$convertTo) > 9) {
+                                $convertedNum .= chr($num%$convertTo + 55);  
+                            } else {
+                                $convertedNum .= $num%$convertTo;
+                            } 
+                            $num = intval(($num - $num%$convertTo) / $convertTo);
+                            if ($num == 0) {
+                                $isConverted = TRUE;
+                            }
+                        }
+                    echo '</table><br>';
 
-                }*/             
+                    echo "<table>";
+                    echo "<tr>
+                        <td>
+                            $convertTo-ová
+                        </td>
+                        <td>
+                            10-ová
+                        </td>
+                    </tr>";
+                    for($i = 0; $i < $convertTo; $i++) {
+                        if ($i < 10)
+                            $convNum = $i;
+                        else
+                            $convNum = chr($i+55);
+                        echo "<tr>
+                            <td>  
+                                $convNum
+                            </td>
+                            <td>
+                                $i
+                            </td>
+                        </tr>";
+                    }
+                    
+                    echo "</table>";
+                    echo '</div>';
+
+                    echo 'Výsledné číslo jsou číslice zbytků odspoda nahodu:<br>';
+                    echo strrev($convertedNum);
+                } else {
+
+                }
+                          
             }
 
             function alert($msg) {
