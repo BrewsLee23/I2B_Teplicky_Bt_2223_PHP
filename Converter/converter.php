@@ -33,10 +33,10 @@
     </head>
     <body>
         <form>
-            <label for="numberId">Číslo </label>
+            <label for="num">Číslo </label>
             <input type="Text" placeholder="Zadej číslo" name="num" pattern="[A-Za-z0-9]{}">
             <br>
-            <label for="ConvertFom">Ze soustavy</label>
+            <label for="ConvertFrom">Ze soustavy</label>
             <input type="number" placeholder="min: 2    max: 36" name="convertFrom" min="2" max="36">
             <br>
             <label for="ConvertTo">Do soustavy</label>
